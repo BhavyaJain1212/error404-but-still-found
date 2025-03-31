@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Soil Monitoring Dashboard - AgriSense</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles1.css') }}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="logo">
+          <img
+           
+            src="{{ url_for('static', filename='agri_pic/logo_agri.png') }}"  
+            alt="AgriSense Logo"
+            width="100px"
+            height="50px"
+          />
+          <h1>AgriSense</h1>
+        </div>
+        <nav>
+          <ul>
+            <li>
+              <a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li>
+              <a href="{{ url_for('monitering') }}" class="active"
+                ><i class="fas fa-chart-line"></i> Dashboard</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('weather') }}"
+                ><i class="fas fa-cloud-sun"></i> Weather</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('alerts') }}"><i class="fas fa-bell"></i> Alerts</a>
+            </li>
+            <li>
+              <a href="{{ url_for('resources') }}"
+                ><i class="fas fa-book"></i> Resources</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <div class="language-selector">
+          <select id="language">
+            <option value="en">English</option>
+            <option value="hi">हिंदी</option>
+            <option value="ta">தமிழ்</option>
+            <option value="bn">বাংলা</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <section class="dashboard-header">
+      <div class="container">
+        <div class="dashboard-title">
+          <h1>Soil Monitoring Dashboard</h1>
+          <p>Real-time soil health metrics for your farm</p>
+        </div>
+        <div class="dashboard-actions">
+          <div class="field-selector">
+            <label for="field-select">Select Field:</label>
+            <select id="field-select">
+              <option value="field1">North Field (Wheat)</option>
+              <option value="field2">South Field (Rice)</option>
+              <option value="field3">East Field (Corn)</option>
+            </select>
+          </div>
+          <div class="date-range">
+            <label for="date-range">Time Period:</label>
+            <select id="date-range">
+              <option value="today">Today</option>
+              <option value="week">Last 7 days</option>
+              <option value="month">Last 30 days</option>
+              <option value="custom">Custom Range</option>
+            </select>
+          </div>
+          <button id="export-data" class="btn btn-secondary">
+            <i class="fas fa-download"></i> Export Data
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-overview">
+      <div class="container">
+        <div class="dashboard-cards">
+          <div class="dashboard-card">
+            <div class="card-icon soil-moisture-icon">
+              <i class="fas fa-tint"></i>
+            </div>
+            <div class="card-content">
+              <h3>Soil Moisture</h3>
+              <div class="card-value" id="moisture-value">{{ sensor_data.rh }}</rdiv>
+              <div class="card-status optimal">Optimal</div>
+            </div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-icon soil-ph-icon">
+              <i class="fas fa-flask"></i>
+            </div>
+            <div class="card-content">
+              <h3>Soil pH</h3>
+              <div class="card-value" id="ph-value">{{ sensor_data.ph }}</div>
+              <div class="card-status optimal">Optimal</div>
+            </div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-icon temperature-icon">
+              <i class="fas fa-thermometer-half"></i>
+            </div>
+            <div class="card-content">
+              <h3>Soil Temperature</h3>
+              <div class="card-value" id="temperature-value">{{ sensor_data.temperature }}</div>
+              <div class="card-status optimal">Optimal</div>
+            </div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-icon nutrient-icon">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <div class="card-content">
+              <h3>Nutrient Index</h3>
+              <div class="card-value" id="nutrient-value">78/100</div>
+              <div class="card-status good">Good</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="soil-details">
+      <div class="container">
+        <div class="soil-charts">
+          <div class="chart-container">
+            <div class="chart-header">
+              <h3>Moisture & pH History</h3>
+              <div class="chart-controls">
+                <button class="btn-chart-toggle active" data-type="moisture">
+                  Moisture
+                </button>
+                <button class="btn-chart-toggle" data-type="ph">pH</button>
+              </div>
+            </div>
+            <div class="chart" id="moisture-ph-chart">
+              <!-- Moisture & pH chart will be rendered here -->
+              <canvas id="moisturePhChart"></canvas>
+            </div>
+          </div>
+          <div class="chart-container">
+            <div class="chart-header">
+              <h3>Temperature History</h3>
+              <div class="chart-controls">
+                <button class="btn-chart-toggle active" data-timeframe="day">
+                  Day
+                </button>
+                <button class="btn-chart-toggle" data-timeframe="week">
+                  Week
+                </button>
+                <button class="btn-chart-toggle" data-timeframe="month">
+                  Month
+                </button>
+              </div>
+            </div>
+            <div class="chart" id="temperature-chart">
+              <!-- Temperature chart will be rendered here -->
+              <canvas id="temperatureChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="nutrient-analysis">
+      <div class="container">
+        <h2 class="section-title">Soil Nutrient Analysis</h2>
+        <div class="nutrient-grid">
+          <div class="nutrient-card">
+            <div class="nutrient-icon">N</div>
+            <h3>Nitrogen</h3>
+            <div class="nutrient-meter">
+              <div class="meter-fill" style="width: 65%"></div>
+            </div>
+            <div class="nutrient-value"><span id="nitrogen-value">{{ sensor_data.nitrogen }}</span> kg/ha</div>
+            <div class="nutrient-status optimal">Optimal</div>
+          </div>
+          <div class="nutrient-card">
+            <div class="nutrient-icon">P</div>
+            <h3>Phosphorus</h3>
+            <div class="nutrient-meter">
+              <div class="meter-fill" style="width: 45%"></div>
+            </div>
+            <div class="nutrient-value"><span id="phosphorus-value">{{ sensor_data.phosphorus }}</span> kg/ha</div>
+            <div class="nutrient-status low">Low</div>
+          </div>
+          <div class="nutrient-card">
+            <div class="nutrient-icon">K</div>
+            <h3>Potassium</h3>
+            <div class="nutrient-meter">
+              <div class="meter-fill" style="width: 85%"></div>
+            </div>
+            <div class="nutrient-value"><span id="potassium-value">{{ sensor_data.potassium }}</span> kg/ha</div>
+            <div class="nutrient-status high">High</div>
+          </div>
+          <div class="nutrient-card">
+            <div class="nutrient-icon">Ca</div>
+            <h3>Calcium</h3>
+            <div class="nutrient-meter">
+              <div class="meter-fill" style="width: 72%"></div>
+            </div>
+            <div class="nutrient-value"><span>72</span> kg/ha</div>
+            <div class="nutrient-status optimal">Optimal</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="soil-health-indicators">
+      <div class="container">
+        <h2 class="section-title">Soil Health Indicators</h2>
+        <div class="indicators-container">
+          <div class="indicator-card">
+            <div class="indicator-header">
+              <i class="fas fa-bug"></i>
+              <h3>Microbial Activity</h3>
+            </div>
+            <div class="indicator-gauge">
+              <div class="gauge-value" style="transform: rotate(120deg)"></div>
+              <div class="gauge-labels">
+                <span>Low</span>
+                <span>Medium</span>
+                <span>High</span>
+              </div>
+            </div>
+            <p>
+              Healthy microbial activity detected. Good for nutrient cycling.
+            </p>
+          </div>
+          <div class="indicator-card">
+            <div class="indicator-header">
+              <i class="fas fa-water"></i>
+              <h3>Water Retention</h3>
+            </div>
+            <div class="indicator-gauge">
+              <div class="gauge-value" style="transform: rotate(150deg)"></div>
+              <div class="gauge-labels">
+                <span>Low</span>
+                <span>Medium</span>
+                <span>High</span>
+              </div>
+            </div>
+            <p>Good water holding capacity. Suitable for drought resistance.</p>
+          </div>
+          <div class="indicator-card">
+            <div class="indicator-header">
+              <i class="fas fa-seedling"></i>
+              <h3>Organic Matter</h3>
+            </div>
+            <div class="indicator-gauge">
+              <div class="gauge-value" style="transform: rotate(90deg)"></div>
+              <div class="gauge-labels">
+                <span>Low</span>
+                <span>Medium</span>
+                <span>High</span>
+              </div>
+            </div>
+            <p>Medium organic matter content. Consider adding compost.</p>
+          </div>
+          <div class="indicator-card">
+            <div class="indicator-header">
+              <i class="fas fa-tachometer-alt"></i>
+              <h3>Compaction</h3>
+            </div>
+            <div class="indicator-gauge">
+              <div class="gauge-value" style="transform: rotate(60deg)"></div>
+              <div class="gauge-labels">
+                <span>Low</span>
+                <span>Medium</span>
+                <span>High</span>
+              </div>
+            </div>
+            <p>Low soil compaction. Good for root growth and development.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sensor-locations">
+      <div class="container">
+        <h2 class="section-title">Sensor Locations</h2>
+        <div class="field-map">
+          <img
+           
+            src="{{ url_for('static', filename='agri_pic/field_map_sensor.jpg') }}"  
+            width="220px"
+            height="500px"
+            alt="Field Map with Sensor Locations"
+            class="map-image"
+          />
+          <div class="sensor-point" style="top: 30%; left: 25%">
+            <div class="sensor-tooltip">
+              <h4>Sensor 1</h4>
+              <p>Moisture: 38%</p>
+              <p>pH: 6.7</p>
+              <p>Temperature: 22°C</p>
+            </div>
+          </div>
+          <div class="sensor-point" style="top: 45%; left: 60%">
+            <div class="sensor-tooltip">
+              <h4>Sensor 2</h4>
+              <p>Moisture: 36%</p>
+              <p>pH: 6.4</p>
+              <p>Temperature: 23°C</p>
+            </div>
+          </div>
+          <div class="sensor-point" style="top: 70%; left: 40%">
+            <div class="sensor-tooltip">
+              <h4>Sensor 3</h4>
+              <p>Moisture: 35%</p>
+              <p>pH: 6.3</p>
+              <p>Temperature: 24°C</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="footer-columns">
+          <div class="footer-column">
+            <h3>AgriSense</h3>
+            <p>
+              Smart Soil Health Monitoring System for sustainable and efficient
+              farming.
+            </p>
+          </div>
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="dashboard.html">Dashboard</a></li>
+              <li><a href="weather.html">Weather</a></li>
+              <li><a href="alerts.html">Alerts</a></li>
+              <li><a href="resources.html">Resources</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Contact Us</h3>
+            <p><i class="fas fa-envelope"></i> info@agrisense.com</p>
+            <p><i class="fas fa-phone"></i> +91 9876543210</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 AgriSense. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+  </body>
+</html>
+
+<script>
+	function updateLiveData() {
+      fetch('/api/latest')
+        .then(response => response.json())
+        .then(data => {
+          // document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
+
+          // Update readings
+          document.getElementById('temperature-value').textContent = `${data.temperature} °C`;
+          document.getElementById('moisture-value').textContent = `${data.humidity}%`;
+          document.getElementById('ph-value').textContent = data.ph;
+          document.getElementById('nitrogen-value').textContent = `${data.nitrogen} ppm`;
+          document.getElementById('phosphorus-value').textContent = `${data.phosphorus} ppm`;
+          document.getElementById('potassium-value').textContent = `${data.potassium} ppm`;
+
+          // Moisture status
+          const moistureStatus = document.getElementById('moisture-status');
+          if (data.humidity < 20) {
+            moistureStatus.textContent = 'Status: Dry';
+            moistureStatus.className = 'status danger';
+          } else if (data.humidity > 45) {
+            moistureStatus.textContent = 'Status: Wet';
+            moistureStatus.className = 'status warning';
+          } else {
+            moistureStatus.textContent = 'Status: Optimal';
+            moistureStatus.className = 'status optimal';
+          }
+
+          // pH status
+          const phStatus = document.getElementById('ph-status');
+          if (data.ph < 6.0) {
+            phStatus.textContent = 'Status: Acidic';
+            phStatus.className = 'status warning';
+          } else if (data.ph > 7.5) {
+            phStatus.textContent = 'Status: Alkaline';
+            phStatus.className = 'status warning';
+          } else {
+            phStatus.textContent = 'Status: Optimal';
+            phStatus.className = 'status optimal';
+          }
+
+          // Day/Night status (based on local time)
+          const hour = new Date().getHours();
+          const dayNightText = (hour >= 6 && hour <= 18) ? 'Day' : 'Night';
+          document.getElementById('day-night-indicator').textContent = `Time of Day: ${dayNightText}`;
+        });
+    }
+
+    setInterval(updateLiveData, 5000); // every 5 seconds
+    window.onload = updateLiveData;
+  </script>
+
+<script>
+  // dashboard.js - AgriSense Dashboard Functionality
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize charts
+    initMoisturePhChart();
+    initTemperatureChart();
+    
+    // Setup event listeners
+    setupFieldSelector();
+    setupTimeRangeSelector();
+    setupChartToggles();
+    setupExportButton();
+    setupSensorHovers();
+    
+    // Simulate real-time data updates
+    startDataSimulation();
+});
+
+// Field Selection Handling
+function setupFieldSelector() {
+    const fieldSelect = document.getElementById('field-select');
+    if (!fieldSelect) return;
+    
+    fieldSelect.addEventListener('change', function() {
+        const selectedField = this.value;
+        console.log(`Field changed to: ${selectedField}`);
+        
+        // Update dashboard data based on selected field
+        updateDashboardData(selectedField);
+    });
+}
+
+// Mock data for different fields
+function getFieldData(fieldId) {
+    const fieldData = {
+        field1: {
+            moisture: '37%',
+            ph: '6.5',
+            temperature: '23°C',
+            nutrientIndex: '78/100',
+            moistureHistory: [34, 35, 38, 37, 36, 37, 37],
+            phHistory: [6.3, 6.4, 6.5, 6.5, 6.6, 6.5, 6.5],
+            temperatureHistory: [21, 22, 24, 23, 22, 23, 23],
+            nutrients: {
+                nitrogen: 65,
+                phosphorus: 45,
+                potassium: 85,
+                calcium: 72
+            }
+        },
+        field2: {
+            moisture: '42%',
+            ph: '5.8',
+            temperature: '24°C',
+            nutrientIndex: '65/100',
+            moistureHistory: [39, 40, 41, 43, 42, 42, 42],
+            phHistory: [5.6, 5.7, 5.8, 5.9, 5.8, 5.8, 5.8],
+            temperatureHistory: [23, 24, 25, 25, 24, 24, 24],
+            nutrients: {
+                nitrogen: 58,
+                phosphorus: 32,
+                potassium: 70,
+                calcium: 65
+            }
+        },
+        field3: {
+            moisture: '31%',
+            ph: '7.2',
+            temperature: '22°C',
+            nutrientIndex: '82/100',
+            moistureHistory: [28, 29, 30, 32, 31, 31, 31],
+            phHistory: [7.0, 7.1, 7.2, 7.3, 7.2, 7.2, 7.2],
+            temperatureHistory: [20, 21, 22, 23, 22, 22, 22],
+            nutrients: {
+                nitrogen: 72,
+                phosphorus: 58,
+                potassium: 90,
+                calcium: 80
+            }
+        }
+    };
+    
+    return fieldData[fieldId] || fieldData.field1;
+}
+
+// Chart initializations
+let moisturePhChart, temperatureChart;
+
+function initMoisturePhChart() {
+    const ctx = document.getElementById('moisturePhChart').getContext('2d');
+    moisturePhChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [
+                {
+                    label: 'Soil Moisture (%)',
+                    data: [34, 35, 38, 37, 36, 37, 37],
+                    borderColor: '#4FACFE',
+                    backgroundColor: 'rgba(79, 172, 254, 0.1)',
+                    tension: 0.3,
+                    fill: true
+                },
+                {
+                    label: 'Soil pH',
+                    data: [6.3, 6.4, 6.5, 6.5, 6.6, 6.5, 6.5],
+                    borderColor: '#FDA085',
+                    backgroundColor: 'rgba(253, 160, 133, 0.1)',
+                    tension: 0.3,
+                    fill: true,
+                    hidden: true
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    grid: {
+                        drawBorder: false
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+}
+
+function initTemperatureChart() {
+    const ctx = document.getElementById('temperatureChart').getContext('2d');
+    temperatureChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [
+                {
+                    label: 'Soil Temperature (°C)',
+                    data: [21, 22, 24, 23, 22, 23, 23],
+                    borderColor: '#F97794',
+                    backgroundColor: 'rgba(249, 119, 148, 0.1)',
+                    tension: 0.3,
+                    fill: true
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    grid: {
+                        drawBorder: false
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+}
+
+function updateCharts(fieldData) {
+    // Update moisture/pH chart
+    moisturePhChart.data.datasets[0].data = fieldData.moistureHistory;
+    moisturePhChart.data.datasets[1].data = fieldData.phHistory;
+    moisturePhChart.update();
+    
+    // Update temperature chart
+    temperatureChart.data.datasets[0].data = fieldData.temperatureHistory;
+    temperatureChart.update();
+}
+
+// Chart toggle functionality
+function setupChartToggles() {
+    // Moisture/pH chart toggles
+    const moisturePhToggles = document.querySelectorAll('.chart-header:first-of-type .btn-chart-toggle');
+    moisturePhToggles.forEach(btn => {
+        btn.addEventListener('click', function() {
+            moisturePhToggles.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            const dataType = this.getAttribute('data-type');
+            if (dataType === 'moisture') {
+                moisturePhChart.data.datasets[0].hidden = false;
+                moisturePhChart.data.datasets[1].hidden = true;
+            } else {
+                moisturePhChart.data.datasets[0].hidden = true;
+                moisturePhChart.data.datasets[1].hidden = false;
+            }
+            moisturePhChart.update();
+        });
+    });
+    
+    // Temperature chart timeframe toggles
+    const temperatureToggles = document.querySelectorAll('.chart-header:nth-of-type(2) .btn-chart-toggle');
+    temperatureToggles.forEach(btn => {
+        btn.addEventListener('click', function() {
+            temperatureToggles.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            const timeframe = this.getAttribute('data-timeframe');
+            // In a real app, this would fetch data for different timeframes
+            // For demo, we'll just show a loading indicator
+            showChartLoadingState('temperature-chart');
+            
+            setTimeout(() => {
+                // Simulate updated data
+                let newData;
+                if (timeframe === 'day') {
+                    newData = [21, 22, 23, 24, 23, 22, 21];
+                } else if (timeframe === 'week') {
+                    newData = [21, 22, 24, 23, 22, 23, 23];
+                } else {
+                    newData = [19, 20, 22, 25, 24, 23, 21];
+                }
+                
+                temperatureChart.data.datasets[0].data = newData;
+                temperatureChart.update();
+                hideChartLoadingState('temperature-chart');
+            }, 500);
+        });
+    });
+}
+
+// Time Range Selection
+function setupTimeRangeSelector() {
+    const dateRange = document.getElementById('date-range');
+    if (!dateRange) return;
+    
+    dateRange.addEventListener('change', function() {
+        const selectedRange = this.value;
+        console.log(`Time range changed to: ${selectedRange}`);
+        
+        // In a real app, this would fetch data for the selected time range
+        // For the demo, we'll simulate data loading
+        showLoadingState();
+        
+        setTimeout(() => {
+            // Update charts based on "new data"
+            hideLoadingState();
+        }, 800);
+    });
+}
+
+// Export functionality
+function setupExportButton() {
+    const exportBtn = document.getElementById('export-data');
+    if (!exportBtn) return;
+    
+    exportBtn.addEventListener('click', function() {
+        // In a real application, this would generate and download a CSV/PDF
+        alert('This would export your dashboard data as CSV or PDF in a real application.');
+    });
+}
+
+// Sensor map interactivity
+function setupSensorHovers() {
+    const sensorPoints = document.querySelectorAll('.sensor-point');
+    
+    sensorPoints.forEach(point => {
+        point.addEventListener('mouseenter', function() {
+            this.classList.add('active');
+        });
+        
+        point.addEventListener('mouseleave', function() {
+            this.classList.remove('active');
+        });
+    });
+}
+
+// Data simulation for real-time effect
+function startDataSimulation() {
+    // Simulate small changes to soil moisture every 10 seconds
+    setInterval(() => {
+        const moistureValue = document.getElementById('moisture-value');
+        if (!moistureValue) return;
+        
+        let currentMoisture = parseInt(moistureValue.textContent);
+        // Random fluctuation between -1 and +1
+        const fluctuation = Math.floor(Math.random() * 3) - 1;
+        currentMoisture += fluctuation;
+        
+        // Keep within reasonable range
+        if (currentMoisture < 20) currentMoisture = 20;
+        if (currentMoisture > 50) currentMoisture = 50;
+        
+        moistureValue.textContent = `${currentMoisture}%`;
+        
+        // Update status if needed
+        const moistureStatus = document.querySelector('#moisture-value').closest('.dashboard-card').querySelector('.card-status');
+        if (currentMoisture < 25) {
+            moistureStatus.textContent = 'Low';
+            moistureStatus.className = 'card-status low';
+        } else if (currentMoisture > 45) {
+            moistureStatus.textContent = 'High';
+            moistureStatus.className = 'card-status high';
+        } else {
+            moistureStatus.textContent = 'Optimal';
+            moistureStatus.className = 'card-status optimal';
+        }
+    }, 10000);
+}
+
+// UI State Helpers
+function showLoadingState() {
+    // Add loading class to the main dashboard sections
+    document.querySelector('.dashboard-overview').classList.add('loading');
+    document.querySelector('.soil-details').classList.add('loading');
+}
+
+function hideLoadingState() {
+    // Remove loading class
+    document.querySelector('.dashboard-overview').classList.remove('loading');
+    document.querySelector('.soil-details').classList.remove('loading');
+}
+
+function showChartLoadingState(chartId) {
+    document.getElementById(chartId).classList.add('loading');
+}
+
+function hideChartLoadingState(chartId) {
+    document.getElementById(chartId).classList.remove('loading');
+}
+</script>
