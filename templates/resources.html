@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resource Library - AgriSense</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles5.css') }}" />
+    <!--<link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/resources.css" /> -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="logo">
+          <img
+            
+          src="{{ url_for('static', filename='agri_pic/logo_agri.png') }}"
+
+          
+
+            alt="AgriSense Logo"
+            width="100px"
+            height="50px"
+          />
+          <h1>AgriSense</h1>
+        </div>
+        <nav>
+          <ul>
+            <li>
+              <a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li>
+              <a href="{{ url_for('monitering') }}"
+                ><i class="fas fa-chart-line"></i> Dashboard</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('weather') }}"
+                ><i class="fas fa-cloud-sun"></i> Weather</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('alerts') }}"><i class="fas fa-bell"></i> Alerts</a>
+            </li>
+            <li>
+              <a href="{{ url_for('resources') }}" class="active"
+                ><i class="fas fa-book"></i> Resources</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <div class="language-selector">
+          <select id="language">
+            <option value="en">English</option>
+            <option value="hi">हिंदी</option>
+            <option value="ta">தமிழ்</option>
+            <option value="bn">বাংলা</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <section class="resources-header">
+      <div class="container">
+        <div class="resources-title">
+          <h1>Farmer's Resource Library</h1>
+          <p>
+            Access expert knowledge, practical guides, and training materials to
+            maximize your farming success
+          </p>
+        </div>
+        <div class="resources-search">
+          <div class="search-input">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              id="resource-search"
+              placeholder="Search for resources..."
+            />
+          </div>
+          <div class="resource-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="guides">Guides</button>
+            <button class="filter-btn" data-filter="videos">Videos</button>
+            <button class="filter-btn" data-filter="courses">Courses</button>
+            <button class="filter-btn" data-filter="tools">Tools</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-resources">
+      <div class="container">
+        <h2 class="section-title">Featured Resources</h2>
+        <div class="featured-slider">
+          <div class="featured-item">
+            <div class="featured-content">
+              <span class="resource-tag">Course</span>
+              <h3>Smart Farming Certificate Program</h3>
+              <p>
+                A comprehensive 8-module course on integrating AgriSense with
+                modern farming practices to maximize yield and sustainability.
+              </p>
+              <a href="#" class="btn btn-primary"
+                ><i class="fas fa-play-circle"></i> Start Course</a
+              >
+            </div>
+            <div class="featured-image">
+              <img
+              src="{{ url_for('static', filename='agri_pic/smart_farming.jpg') }}"
+                alt="Smart Farming Course"
+              />
+            </div>
+          </div>
+          <div class="slider-controls">
+            <button class="slider-btn prev">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="slider-dots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <button class="slider-btn next">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="beginner-guides">
+      <div class="container">
+        <h2 class="section-title">Getting Started with AgriSense</h2>
+        <div class="guides-container">
+          <div class="guide-card">
+            <div class="guide-icon">
+              <i class="fas fa-seedling"></i>
+            </div>
+            <h3>Device Setup Guide</h3>
+            <p>
+              Step-by-step instructions for installing and configuring your
+              AgriSense soil sensors for optimal data collection.
+            </p>
+            <a href="#" class="btn btn-secondary"
+              >Read Guide <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+          <div class="guide-card">
+            <div class="guide-icon">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h3>App Navigation Tutorial</h3>
+            <p>
+              Learn how to use all features of the AgriSense dashboard, alerts,
+              and weather forecasting tools effectively.
+            </p>
+            <a href="#" class="btn btn-secondary"
+              >Read Guide <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+          <div class="guide-card">
+            <div class="guide-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Understanding Soil Data</h3>
+            <p>
+              A beginner's guide to interpreting soil moisture, nutrient, and pH
+              readings for making informed decisions.
+            </p>
+            <a href="#" class="btn btn-secondary"
+              >Read Guide <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+          <div class="guide-card">
+            <div class="guide-icon">
+              <i class="fas fa-cogs"></i>
+            </div>
+            <h3>Custom Alert Configuration</h3>
+            <p>
+              How to set up personalized alerts based on your specific crop
+              requirements and local conditions.
+            </p>
+            <a href="#" class="btn btn-secondary"
+              >Read Guide <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="video-resources">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Video Tutorials</h2>
+          <a href="#" class="view-all"
+            >View All <i class="fas fa-chevron-right"></i
+          ></a>
+        </div>
+        <div class="video-grid">
+          <div class="video-card">
+            <div class="video-thumbnail">
+              <img
+                
+                src="{{ url_for('static', filename='agri_pic2/soil_sampling.jpg') }}"
+                alt="Soil Sampling Tutorial"
+              />
+              <div class="play-button">
+                <i class="fas fa-play"></i>
+              </div>
+              <span class="video-duration">12:45</span>
+            </div>
+            <div class="video-info">
+              <h3>Proper Soil Sampling Techniques</h3>
+              <p>
+                Learn how to collect accurate soil samples for testing and
+                AgriSense sensor placement.
+              </p>
+              <div class="video-meta">
+                <span><i class="fas fa-eye"></i> 24.5K views</span>
+                <span><i class="fas fa-calendar-alt"></i> Feb 15, 2025</span>
+              </div>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="video-thumbnail">
+              <img
+               
+                src="{{ url_for('static', filename='agri_pic2/smart_irrigation.jpg') }}"
+                
+                alt="Smart Irrigation Tutorial"
+              />
+              <div class="play-button">
+                <i class="fas fa-play"></i>
+              </div>
+              <span class="video-duration">18:32</span>
+            </div>
+            <div class="video-info">
+              <h3>Smart Irrigation with AgriSense</h3>
+              <p>
+                How to use soil moisture data and weather forecasts to optimize
+                your irrigation schedule.
+              </p>
+              <div class="video-meta">
+                <span><i class="fas fa-eye"></i> 18.3K views</span>
+                <span><i class="fas fa-calendar-alt"></i> Jan 28, 2025</span>
+              </div>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="video-thumbnail">
+              <img
+                
+                src="{{ url_for('static', filename='agri_pic2/fertilizer_apply.jpg') }}"
+                
+                alt="Fertilizer Application Tutorial"
+              />
+              <div class="play-button">
+                <i class="fas fa-play"></i>
+              </div>
+              <span class="video-duration">15:18</span>
+            </div>
+            <div class="video-info">
+              <h3>Precision Fertilizer Application</h3>
+              <p>
+                Using soil nutrient data from AgriSense to apply the right
+                fertilizer at the right time.
+              </p>
+              <div class="video-meta">
+                <span><i class="fas fa-eye"></i> 15.7K views</span>
+                <span><i class="fas fa-calendar-alt"></i> Mar 05, 2025</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="crop-specific-resources">
+      <div class="container">
+        <h2 class="section-title">Crop-Specific Guides</h2>
+        <div class="crop-categories">
+          <div class="crop-category">
+            <img
+            
+              src="{{ url_for('static', filename='agri_pic2/wheat.jpg') }}"
+             
+              
+              alt="Wheat"
+              class="crop-icon"
+            />
+            <span>Wheat</span>
+          </div>
+          <div class="crop-category">
+            <img
+             
+              src="{{ url_for('static', filename='agri_pic2/rice.jpg') }}"
+              alt="Rice"
+              class="crop-icon"
+            />
+            <span>Rice</span>
+          </div>
+          <div class="crop-category">
+            <img
+              
+              src="{{ url_for('static', filename='agri_pic2/corn.jpg') }}"
+              alt="Corn"
+              class="crop-icon"
+            />
+            <span>Corn</span>
+          </div>
+          <div class="crop-category">
+            <img
+             
+              src="{{ url_for('static', filename='agri_pic2/cotton.jpg') }}"
+              alt="Cotton"
+              class="crop-icon"
+            />
+            <span>Cotton</span>
+          </div>
+          <div class="crop-category">
+            <img
+             
+              src="{{ url_for('static', filename='agri_pic2/sugarcane.jpg') }}"
+              alt="Sugarcane"
+              class="crop-icon"
+            />
+            <span>Sugarcane</span>
+          </div>
+          <div class="crop-category">
+            <img
+             
+              src="{{ url_for('static', filename='agri_pic2/vegetable.jpg') }}"
+              alt="Vegetables"
+              class="crop-icon"
+            />
+            <span>Vegetables</span>
+          </div>
+          <div class="crop-category">
+            <img
+              
+              src="{{ url_for('static', filename='agri_pic2/fruit.jpg') }}"
+              alt="Fruits"
+              class="crop-icon"
+            />
+            <span>Fruits</span>
+          </div>
+          <div class="crop-category more">
+            <div class="more-icon">
+              <i class="fas fa-ellipsis-h"></i>
+            </div>
+            <span>More</span>
+          </div>
+        </div>
+
+        <div class="crop-guides-preview">
+          <h3>Wheat Farming Resources</h3>
+          <div class="resource-list">
+            <div class="resource-item">
+              <div class="resource-item-icon pdf">
+                <i class="fas fa-file-pdf"></i>
+              </div>
+              <div class="resource-item-info">
+                <h4>Wheat Soil Health Guide</h4>
+                <p>
+                  Optimal soil conditions for wheat cultivation with AgriSense
+                  monitoring
+                </p>
+                <span class="resource-type">PDF Guide • 4.2 MB</span>
+              </div>
+              <a href="#" class="resource-download"
+                ><i class="fas fa-download"></i
+              ></a>
+            </div>
+            <div class="resource-item">
+              <div class="resource-item-icon doc">
+                <i class="fas fa-file-alt"></i>
+              </div>
+              <div class="resource-item-info">
+                <h4>Wheat Irrigation Schedule Template</h4>
+                <p>
+                  Customizable irrigation schedule based on wheat growth stages
+                </p>
+                <span class="resource-type">Document • 1.8 MB</span>
+              </div>
+              <a href="#" class="resource-download"
+                ><i class="fas fa-download"></i
+              ></a>
+            </div>
+            <div class="resource-item">
+              <div class="resource-item-icon video">
+                <i class="fas fa-video"></i>
+              </div>
+              <div class="resource-item-info">
+                <h4>Wheat Disease Detection Using AgriSense</h4>
+                <p>
+                  How to use soil data and visual indicators to identify common
+                  wheat diseases early
+                </p>
+                <span class="resource-type">Video • 22:15</span>
+              </div>
+              <a href="#" class="resource-watch"
+                ><i class="fas fa-play-circle"></i
+              ></a>
+            </div>
+            <div class="resource-item">
+              <div class="resource-item-icon spreadsheet">
+                <i class="fas fa-file-excel"></i>
+              </div>
+              <div class="resource-item-info">
+                <h4>Wheat Yield Calculator</h4>
+                <p>
+                  Estimate your wheat yield based on AgriSense soil data and
+                  other parameters
+                </p>
+                <span class="resource-type">Excel Calculator • 3.5 MB</span>
+              </div>
+              <a href="#" class="resource-download"
+                ><i class="fas fa-download"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="seasonal-guides">
+      <div class="container">
+        <h2 class="section-title">Seasonal Farming Guides</h2>
+        <div class="seasonal-tabs">
+          <button class="season-tab active" data-season="kharif">
+            <i class="fas fa-cloud-rain"></i> Kharif (Monsoon)
+          </button>
+          <button class="season-tab" data-season="rabi">
+            <i class="fas fa-snowflake"></i> Rabi (Winter)
+          </button>
+          <button class="season-tab" data-season="zaid">
+            <i class="fas fa-sun"></i> Zaid (Summer)
+          </button>
+        </div>
+
+        <div class="seasonal-content active" id="kharif-content">
+          <div class="season-info">
+            <div class="season-description">
+              <h3>Kharif Season Resources (June-October)</h3>
+              <p>
+                Prepare for the monsoon growing season with these specialized
+                resources for rain-fed agriculture. Learn how to use AgriSense
+                to monitor soil moisture during heavy rainfall and manage water
+                logging issues effectively.
+              </p>
+              <div class="season-highlights">
+                <div class="highlight-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Monsoon crop selection guides</span>
+                </div>
+                <div class="highlight-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Waterlogging prevention techniques</span>
+                </div>
+                <div class="highlight-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Pest management during high humidity</span>
+                </div>
+              </div>
+            </div>
+            <div class="season-image">
+              <img
+                src="./images/resources/kharif-farming.jpg"
+                alt="Kharif Season Farming"
+              />
+            </div>
+          </div>
+
+          <div class="season-resources">
+            <div class="season-resource-card">
+              <div class="resource-card-icon">
+                <i class="fas fa-book"></i>
+              </div>
+              <h4>Monsoon Preparedness Guide</h4>
+              <p>
+                Prepare your fields and AgriSense sensors for the monsoon season
+              </p>
+              <a href="#" class="btn btn-sm">View Guide</a>
+            </div>
+            <div class="season-resource-card">
+              <div class="resource-card-icon">
+                <i class="fas fa-video"></i>
+              </div>
+              <h4>Rice Cultivation Masterclass</h4>
+              <p>
+                Complete video series on optimizing rice growth with AgriSense
+              </p>
+              <a href="#" class="btn btn-sm">Watch Series</a>
+            </div>
+            <div class="season-resource-card">
+              <div class="resource-card-icon">
+                <i class="fas fa-file-alt"></i>
+              </div>
+              <h4>Pest & Disease Prevention</h4>
+              <p>Identifying and treating common monsoon crop diseases early</p>
+              <a href="#" class="btn btn-sm">Download</a>
+            </div>
+            <div class="season-resource-card">
+              <div class="resource-card-icon">
+                <i class="fas fa-tools"></i>
+              </div>
+              <h4>Drainage System Planning</h4>
+              <p>
+                Interactive tool to design field drainage based on slope data
+              </p>
+              <a href="#" class="btn btn-sm">Use Tool</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="seasonal-content" id="rabi-content">
+          <!-- Rabi season content would be here, similar structure -->
+        </div>
+
+        <div class="seasonal-content" id="zaid-content">
+          <!-- Zaid season content would be here, similar structure -->
+        </div>
+      </div>
+    </section>
+
+    <section class="tools-calculators">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Interactive Tools & Calculators</h2>
+          <a href="#" class="view-all"
+            >View All <i class="fas fa-chevron-right"></i
+          ></a>
+        </div>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-icon">
+              <i class="fas fa-calculator"></i>
+            </div>
+            <h3>Fertilizer Calculator</h3>
+            <p>
+              Calculate precise fertilizer requirements based on your AgriSense
+              soil nutrient readings and crop needs.
+            </p>
+            <a href="#" class="btn btn-primary">Use Calculator</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon">
+              <i class="fas fa-tint"></i>
+            </div>
+            <h3>Irrigation Planner</h3>
+            <p>
+              Generate custom irrigation schedules based on soil moisture data,
+              crop water requirements, and weather forecasts.
+            </p>
+            <a href="#" class="btn btn-primary">Use Planner</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <h3>Crop Selector</h3>
+            <p>
+              Find the best crops for your field based on soil analysis from
+              AgriSense sensors, local climate, and market demand.
+            </p>
+            <a href="#" class="btn btn-primary">Use Selector</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon">
+              <i class="fas fa-chart-pie"></i>
+            </div>
+            <h3>Profit Estimator</h3>
+            <p>
+              Estimate potential profits for different crops based on yield
+              projections from AgriSense data and current market prices.
+            </p>
+            <a href="#" class="btn btn-primary">Use Estimator</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="expert-community">
+      <div class="container">
+        <h2 class="section-title">Expert Community & Support</h2>
+        <div class="community-cards">
+          <div class="community-card">
+            <img
+              src="./images/resources/forum-icon.png"
+              alt="Farmer Forum"
+              class="community-icon"
+            />
+            <h3>Farmer Forum</h3>
+            <p>
+              Connect with other AgriSense users, share experiences, and get
+              advice from the community.
+            </p>
+            <a href="#" class="btn btn-secondary"
+              >Join Discussion <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+          <div class="community-card">
+            <img
+              src="./images/resources/expert-icon.png"
+              alt="Expert Connect"
+              class="community-icon"
+            />
+            <h3>Expert Connect</h3>
+            <p>
+              Schedule one-on-one consultations with agricultural experts who
+              specialize in precision farming.
+            </p>
+            <a href="#" class="btn btn-secondary"
+              >Book Session <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+          <div class="community-card">
+            <img
+              src="./images/resources/webinar-icon.png"
+              alt="Live Webinars"
+              class="community-icon"
+            />
+            <h3>Live Webinars</h3>
+            <p>
+              Participate in weekly webinars on seasonal topics, new features,
+              and advanced farming techniques.
+            </p>
+            <a href="#" class="btn btn-secondary"
+              >View Schedule <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+          <div class="community-card">
+            <img
+              src="./images/resources/support-icon.png"
+              alt="Technical Support"
+              class="community-icon"
+            />
+            <h3>Technical Support</h3>
+            <p>
+              Get help with sensor installation, troubleshooting, and
+              app-related questions from our support team.
+            </p>
+            <a href="#" class="btn btn-secondary"
+              >Contact Support <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="success-stories">
+      <div class="container">
+        <h2 class="section-title">Farmer Success Stories</h2>
+        <div class="stories-carousel">
+          <div class="story-card">
+            <div class="story-image">
+              <img
+                
+                src="{{ url_for('static', filename='agri_pic/wheat_farmer.jpg') }}"
+                alt="Farmer Rajesh Singh"
+              />
+            </div>
+            <div class="story-content">
+              <div class="farmer-info">
+                <h3>Rajesh Singh</h3>
+                <span class="location">Punjab, India</span>
+              </div>
+              <div class="story-quote">
+                <i class="fas fa-quote-left"></i>
+                <p>
+                  "With AgriSense soil monitoring, I reduced my water usage by
+                  30% while increasing wheat yield by 15%. The app's
+                  recommendations helped me apply fertilizers only when needed,
+                  saving both money and resources."
+                </p>
+              </div>
+              <div class="story-stats">
+                <div class="stat">
+                  <span class="stat-value">30%</span>
+                  <span class="stat-label">Water Saved</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-value">15%</span>
+                  <span class="stat-label">Yield Increase</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-value">₹45,000</span>
+                  <span class="stat-label">Extra Profit/Acre</span>
+                </div>
+              </div>
+              <a href="#" class="btn btn-sm">Read Full Story</a>
+            </div>
+          </div>
+
+          <div class="carousel-controls">
+            <button class="carousel-btn prev">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-indicators">
+              <span class="indicator active"></span>
+              <span class="indicator"></span>
+              <span class="indicator"></span>
+              <span class="indicator"></span>
+            </div>
+            <button class="carousel-btn next">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="resource-newsletter">
+      <div class="container">
+        <div class="newsletter-card">
+          <div class="newsletter-content">
+            <h2>Stay Updated with Farming Insights</h2>
+            <p>
+              Subscribe to our monthly newsletter for seasonal farming tips,
+              AgriSense updates, and exclusive resources direct to your inbox.
+            </p>
+            <form class="newsletter-form">
+              <div class="form-input">
+                <i class="fas fa-envelope"></i>
+                <input
+                  type="email"
+                  placeholder="Enter your email address"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">
+                Subscribe <i class="fas fa-paper-plane"></i>
+              </button>
+            </form>
+            <div class="form-note">
+              <i class="fas fa-shield-alt"></i> We respect your privacy and will
+              never share your information.
+            </div>
+          </div>
+          <div class="newsletter-image">
+            <img
+              src="./images/resources/newsletter-image.jpg"
+              alt="AgriSense Newsletter"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="footer-columns">
+          <div class="footer-column">
+            <h3>AgriSense</h3>
+            <p>
+              Smart Soil Health Monitoring System for sustainable and efficient
+              farming.
+            </p>
+          </div>
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="dashboard.html">Dashboard</a></li>
+              <li><a href="weather.html">Weather</a></li>
+              <li><a href="alerts.html">Alerts</a></li>
+              <li><a href="resources.html">Resources</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Contact Us</h3>
+            <p><i class="fas fa-envelope"></i> info@agrisense.com</p>
+            <p><i class="fas fa-phone"></i> +91 9876543210</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 AgriSense. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+   
+  </body>
+</html>
+<script>// alerts.js - AgriSense Alerts & Recommendations Functionality
+
+  document.addEventListener('DOMContentLoaded', function() {
+      // Initialize all event listeners
+      setupFieldSelector();
+      setupAlertFilters();
+      setupAlertActions();
+      setupPagination();
+      setupNotificationSettings();
+      setupCustomAlertForm();
+  });
+  
+  // Field selection functionality
+  function setupFieldSelector() {
+      const fieldSelect = document.getElementById('alert-field-select');
+      if (!fieldSelect) return;
+      
+      fieldSelect.addEventListener('change', function() {
+          const selectedField = this.value;
+          console.log(`Filtering alerts for: ${selectedField}`);
+          
+          // Filter alerts based on selected field
+          filterAlertsByField(selectedField);
+      });
+  }
+  
+  function filterAlertsByField(fieldId) {
+      // Show loading state
+      document.querySelector('.alerts-container').classList.add('loading');
+      
+      setTimeout(() => {
+          const alertCards = document.querySelectorAll('.alert-card');
+          
+          alertCards.forEach(card => {
+              const cardContent = card.querySelector('.alert-content').textContent.toLowerCase();
+              
+              if (fieldId === 'all') {
+                  card.style.display = 'block';
+              } else {
+                  // Check if the card mentions the selected field
+                  // This is a simplified approach. In a real app, you would have proper data attributes
+                  const fieldNames = {
+                      'field1': 'north field',
+                      'field2': 'south field',
+                      'field3': 'east field'
+                  };
+                  
+                  if (cardContent.includes(fieldNames[fieldId])) {
+                      card.style.display = 'block';
+                  } else {
+                      card.style.display = 'none';
+                  }
+              }
+          });
+          
+          // Also filter recommendations
+          filterRecommendationsByField(fieldId);
+          
+          // Remove loading state
+          document.querySelector('.alerts-container').classList.remove('loading');
+      }, 300);
+  }
+  
+  function filterRecommendationsByField(fieldId) {
+      const recommendationCards = document.querySelectorAll('.recommendation-card');
+      
+      recommendationCards.forEach(card => {
+          const fieldTag = card.querySelector('.field-tag').textContent.toLowerCase();
+          
+          if (fieldId === 'all') {
+              card.style.display = 'flex';
+          } else {
+              const fieldNames = {
+                  'field1': 'north field',
+                  'field2': 'south field',
+                  'field3': 'east field'
+              };
+              
+              if (fieldTag.includes(fieldNames[fieldId]) || fieldTag.includes('all fields')) {
+                  card.style.display = 'flex';
+              } else {
+                  card.style.display = 'none';
+              }
+          }
+      });
+  }
+  
+  // Alert filters functionality
+  function setupAlertFilters() {
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      if (filterButtons.length === 0) return;
+      
+      filterButtons.forEach(btn => {
+          btn.addEventListener('click', function() {
+              // Remove active class from all buttons
+              filterButtons.forEach(b => b.classList.remove('active'));
+              
+              // Add active class to clicked button
+              this.classList.add('active');
+              
+              // Filter alerts based on selected type
+              const filterType = this.getAttribute('data-filter');
+              filterAlertsByType(filterType);
+          });
+      });
+  }
+  
+  function filterAlertsByType(type) {
+      // Show loading state
+      document.querySelector('.alerts-container').classList.add('loading');
+      
+      setTimeout(() => {
+          const alertCards = document.querySelectorAll('.alert-card');
+          
+          alertCards.forEach(card => {
+              if (type === 'all') {
+                  card.style.display = 'block';
+              } else {
+                  if (card.classList.contains(type)) {
+                      card.style.display = 'block';
+                  } else {
+                      card.style.display = 'none';
+                  }
+              }
+          });
+          
+          // Remove loading state
+          document.querySelector('.alerts-container').classList.remove('loading');
+      }, 300);
+  }
+  
+  // Alert action buttons (Mark as Resolved, Snooze)
+  function setupAlertActions() {
+      // Mark as Resolved buttons
+      const resolveButtons = document.querySelectorAll('.alert-actions .btn-primary');
+      resolveButtons.forEach(btn => {
+          btn.addEventListener('click', function() {
+              const alertCard = this.closest('.alert-card');
+              
+              // Add a resolved visual feedback
+              alertCard.classList.add('resolving');
+              
+              setTimeout(() => {
+                  // In a real app, this would call an API to update the alert status
+                  alertCard.style.opacity = '0';
+                  
+                  setTimeout(() => {
+                      alertCard.style.display = 'none';
+                      
+                      // Show a success message
+                      showNotification('Alert marked as resolved successfully!', 'success');
+                      
+                      // Check if there are no more visible alerts
+                      checkForEmptyAlerts();
+                  }, 300);
+              }, 700);
+          });
+      });
+      
+      // Snooze buttons
+      const snoozeButtons = document.querySelectorAll('.alert-actions .btn-secondary');
+      snoozeButtons.forEach(btn => {
+          btn.addEventListener('click', function() {
+              const alertCard = this.closest('.alert-card');
+              
+              // Show snooze options (in a real app, this would be a dropdown or modal)
+              const snoozeTime = prompt('Snooze for how many hours?', '24');
+              
+              if (snoozeTime) {
+                  // Add a snoozed visual feedback
+                  alertCard.classList.add('snoozed');
+                  
+                  // Update the UI to show it's snoozed
+                  const alertHeader = alertCard.querySelector('.alert-header');
+                  const snoozeIndicator = document.createElement('div');
+                  snoozeIndicator.className = 'snooze-indicator';
+                  snoozeIndicator.innerHTML = `<i class="fas fa-clock"></i> Snoozed for ${snoozeTime}h`;
+                  alertHeader.appendChild(snoozeIndicator);
+                  
+                  // Show a success message
+                  showNotification(`Alert snoozed for ${snoozeTime} hours!`, 'info');
+              }
+          });
+      });
+      
+      // Recommendation apply buttons
+      const applyButtons = document.querySelectorAll('.recommendation-content .btn-primary');
+      applyButtons.forEach(btn => {
+          btn.addEventListener('click', function() {
+              const recommendationCard = this.closest('.recommendation-card');
+              const recommendationTitle = recommendationCard.querySelector('h3').textContent;
+              
+              // In a real app, this would call an API to apply the recommendation
+              // For demo, just show a visual confirmation
+              this.innerHTML = '<i class="fas fa-check"></i> Applied';
+              this.classList.add('applied');
+              this.disabled = true;
+              
+              // Show a success message
+              showNotification(`Recommendation "${recommendationTitle}" has been applied!`, 'success');
+          });
+      });
+  }
+  
+  function checkForEmptyAlerts() {
+      const visibleAlerts = document.querySelectorAll('.alert-card[style="display: block;"], .alert-card:not([style])');
+      
+      if (visibleAlerts.length === 0) {
+          const alertsContainer = document.querySelector('.alerts-container');
+          
+          // Create an empty state message
+          const emptyState = document.createElement('div');
+          emptyState.className = 'empty-state';
+          emptyState.innerHTML = `
+              <div class="empty-icon">
+                  <i class="fas fa-check-circle"></i>
+              </div>
+              <h3>All caught up!</h3>
+              <p>No active alerts at the moment. We'll notify you when something needs attention.</p>
+          `;
+          
+          alertsContainer.appendChild(emptyState);
+      }
+  }
+  
+  // Notification/toast message function
+  function showNotification(message, type = 'info') {
+      // Create notification element
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      
+      // Set icon based on type
+      let icon;
+      switch(type) {
+          case 'success':
+              icon = 'fas fa-check-circle';
+              break;
+          case 'warning':
+              icon = 'fas fa-exclamation-triangle';
+              break;
+          case 'error':
+              icon = 'fas fa-times-circle';
+              break;
+          default:
+              icon = 'fas fa-info-circle';
+      }
+      
+      notification.innerHTML = `
+          <div class="notification-icon">
+              <i class="${icon}"></i>
+          </div>
+          <div class="notification-message">${message}</div>
+          <button class="notification-close">
+              <i class="fas fa-times"></i>
+          </button>
+      `;
+      
+      // Add to the DOM
+      document.body.appendChild(notification);
+      
+      // Add visible class after a small delay (for animation)
+      setTimeout(() => {
+          notification.classList.add('visible');
+      }, 10);
+      
+      // Setup close button
+      const closeBtn = notification.querySelector('.notification-close');
+      closeBtn.addEventListener('click', () => {
+          notification.classList.remove('visible');
+          
+          // Remove from DOM after animation completes
+          setTimeout(() => {
+              document.body.removeChild(notification);
+          }, 300);
+      });
+      
+      // Auto-close after 5 seconds
+      setTimeout(() => {
+          if (document.body.contains(notification)) {
+              notification.classList.remove('visible');
+              
+              setTimeout(() => {
+                  if (document.body.contains(notification)) {
+                      document.body.removeChild(notification);
+                  }
+              }, 300);
+          }
+      }, 5000);
+  }
+  
+  // Pagination for Alert History
+  function setupPagination() {
+      const pageButtons = document.querySelectorAll('.page-btn');
+      if (pageButtons.length === 0) return;
+      
+      pageButtons.forEach(btn => {
+          btn.addEventListener('click', function() {
+              if (this.classList.contains('next')) {
+                  // Handle next page button
+                  const activePage = document.querySelector('.page-btn.active:not(.next)');
+                  if (activePage && activePage.nextElementSibling && !activePage.nextElementSibling.classList.contains('next')) {
+                      activePage.classList.remove('active');
+                      activePage.nextElementSibling.classList.add('active');
+                      
+                      // In a real app, this would load the next page of data
+                      loadAlertHistoryPage(activePage.nextElementSibling.textContent);
+                  }
+              } else {
+                  // Handle numbered page buttons
+                  pageButtons.forEach(b => {
+                      if (!b.classList.contains('next')) {
+                          b.classList.remove('active');
+                      }
+                  });
+                  
+                  this.classList.add('active');
+                  
+                  // In a real app, this would load the specific page of data
+                  loadAlertHistoryPage(this.textContent);
+              }
+          });
+      });
+  }
+  
+  function loadAlertHistoryPage(pageNumber) {
+      // Show loading state
+      const historyTable = document.querySelector('.alert-table tbody');
+      historyTable.classList.add('loading');
+      
+      // In a real app, this would fetch page data from an API
+      // For demo, we'll simulate loading with a timeout
+      setTimeout(() => {
+          // Simulate different data for different pages
+          if (pageNumber === '1') {
+              // Page 1 is already loaded in the HTML
+              historyTable.classList.remove('loading');
+          } else if (pageNumber === '2') {
+              // Simulate page 2 data
+              historyTable.innerHTML = `
+                  <tr>
+                      <td>Mar 15, 2025 - 08:30 AM</td>
+                      <td><span class="alert-tag info">Info</span></td>
+                      <td>South Field (Rice)</td>
+                      <td>Optimal Temperature for Rice Growth</td>
+                      <td><span class="status-tag resolved">Resolved</span></td>
+                  </tr>
+                  <tr>
+                      <td>Mar 12, 2025 - 01:45 PM</td>
+                      <td><span class="alert-tag warning">Warning</span></td>
+                      <td>North Field (Wheat)</td>
+                      <td>Calcium Deficiency Detected</td>
+                      <td><span class="status-tag resolved">Resolved</span></td>
+                  </tr>
+                  <tr>
+                      <td>Mar 10, 2025 - 11:20 AM</td>
+                      <td><span class="alert-tag critical">Critical</span></td>
+                      <td>East Field (Corn)</td>
+                      <td>Pest Detection: Corn Borers</td>
+                      <td><span class="status-tag resolved">Resolved</span></td>
+                  </tr>
+                  <tr>
+                      <td>Mar 08, 2025 - 09:55 AM</td>
+                      <td><span class="alert-tag warning">Warning</span></td>
+                      <td>All Fields</td>
+                      <td>Frost Warning: Temperatures below 2°C expected</td>
+                      <td><span class="status-tag resolved">Resolved</span></td>
+                  </tr>
+                  <tr>
+                      <td>Mar 05, 2025 - 03:40 PM</td>
+                      <td><span class="alert-tag info">Info</span></td>
+                      <td>North Field (Wheat)</td>
+                      <td>Recommended Time for Weed Control</td>
+                      <td><span class="status-tag resolved">Resolved</span></td>
+                  </tr>
+              `;
+              historyTable.classList.remove('loading');
+          } else if (pageNumber === '3') {
+              // Simulate page 3 data
+              historyTable.innerHTML = `
+                  <tr>
+                      <td>Mar 02, 2025 - 10:15 AM</td>
+                      <td><span class="alert-tag warning">Warning</span></td>
+                      <td>South Field (Rice)</td>
+                      <td>Increased Salinity Detected (3.2 dS/m)</td>
+                      <td><span class="status-tag resolved">Resolved</span></td>
+                  </tr>
+                  <tr>
+                      <td>Feb 28, 2025 - 02:30 PM</td>
+                      <td><span class="alert-tag info">Info</span></td>
+                      <td>East Field (Corn)</td>
+                      <td>Optimal Soil Structure for Planting</td>
+                      <td><span class="status-tag resolved">Resolved</span></td>
+                  </tr>
+                  <tr>
+                      <td>Feb 25, 2025 - 09:10 AM</td>
+                      <td><span class="alert-tag critical">Critical</span></td>
+                      <td>North Field (Wheat)</td>
+                      <td>Water Logging Detected</td>
+                      <td><span class="status-tag resolved">Resolved</span></td>
+                  </tr>
+                  <tr>
+                      <td>Feb 22, 2025 - 11:45 AM</td>
+                      <td><span class="alert-tag warning">Warning</span></td>
+                      <td>All Fields</td>
+                      <td>Strong Wind Advisory (>30 km/h)</td>
+                      <td><span class="status-tag resolved">Resolved</span></td>
+                  </tr>
+                  <tr>
+                      <td>Feb 20, 2025 - 04:20 PM</td>
+                      <td><span class="alert-tag info">Info</span></td>
+                      <td>South Field (Rice)</td>
+                      <td>Harvest Time Recommendation</td>
+                      <td><span class="status-tag resolved">Resolved</span></td>
+                  </tr>
+              `;
+              historyTable.classList.remove('loading');
+          }
+      }, 500);
+  }
+  
+  // Notification Settings
+  function setupNotificationSettings() {
+      const saveButton = document.querySelector('.notification-settings .btn-primary');
+      const resetButton = document.querySelector('.notification-settings .btn-secondary');
+      
+      if (!saveButton || !resetButton) return;
+      
+      // Save button
+      saveButton.addEventListener('click', function() {
+          // In a real app, this would save preferences to a database
+          showNotification('Notification preferences saved successfully!', 'success');
+          
+          // Simulate a successful save
+          const checkboxes = document.querySelectorAll('.notification-settings input[type="checkbox"]');
+          const preferences = {};
+          
+          checkboxes.forEach(checkbox => {
+              preferences[checkbox.id] = checkbox.checked;
+          });
+          
+          console.log('Saved preferences:', preferences);
+          
+          // In a real app, you'd store these preferences
+          localStorage.setItem('alertPreferences', JSON.stringify(preferences));
+      });
+      
+      // Reset button
+      resetButton.addEventListener('click', function() {
+          // Reset all checkboxes to checked
+          const checkboxes = document.querySelectorAll('.notification-settings input[type="checkbox"]');
+          
+          checkboxes.forEach(checkbox => {
+              checkbox.checked = true;
+          });
+          
+          showNotification('Notification preferences reset to default!', 'info');
+      });
+      
+      // Load saved preferences if any
+      const savedPreferences = localStorage.getItem('alertPreferences');
+      if (savedPreferences) {
+          const preferences = JSON.parse(savedPreferences);
+          
+          // Apply saved preferences
+          Object.keys(preferences).forEach(id => {
+              const checkbox = document.getElementById(id);
+              if (checkbox) {
+                  checkbox.checked = preferences[id];
+              }
+          });
+      }
+  }
+  
+  // Custom Alert Setup
+  function setupCustomAlertForm() {
+      const createButton = document.querySelector('.custom-alert-form .btn-primary');
+      if (!createButton) return;
+      
+      createButton.addEventListener('click', function() {
+          // Get form values
+          const field = document.getElementById('alert-field').value;
+          const parameter = document.getElementById('alert-parameter').value;
+          const minThreshold = document.getElementById('min-threshold').value;
+          const maxThreshold = document.getElementById('max-threshold').value;
+          const priority = document.getElementById('alert-priority').value;
+          
+          // Validate
+          if (!field || !parameter || !minThreshold || !maxThreshold) {
+              showNotification('Please fill in all fields!', 'error');
+              return;
+          }
+          
+          // Get field name from select option text
+          const fieldName = document.getElementById('alert-field').options[document.getElementById('alert-field').selectedIndex].text;
+          const parameterName = document.getElementById('alert-parameter').options[document.getElementById('alert-parameter').selectedIndex].text;
+          
+          // In a real app, this would save the custom alert to the database
+          // For demo, add to the table
+          addCustomAlertToTable(fieldName, parameterName, minThreshold, maxThreshold, priority);
+          
+          // Show success message
+          showNotification('Custom alert created successfully!', 'success');
+          
+          // Reset form
+          document.getElementById('alert-field').value = '';
+          document.getElementById('alert-parameter').value = '';
+          document.getElementById('min-threshold').value = '';
+          document.getElementById('max-threshold').value = '';
+          document.getElementById('alert-priority').value = 'critical';
+      });
+      
+      // Setup delete and edit buttons for existing custom alerts
+      setupCustomAlertTableActions();
+  }
+  
+  function addCustomAlertToTable(field, parameter, min, max, priority) {
+      const tbody = document.querySelector('.custom-alert-table tbody');
+      
+      // Create new row
+      const tr = document.createElement('tr');
+      
+      // Add units based on parameter
+      let unitMin = min;
+      let unitMax = max;
+      
+      if (parameter === 'Soil Moisture') {
+          unitMin = `${min}%`;
+          unitMax = `${max}%`;
+      } else if (parameter === 'Soil Temperature') {
+          unitMin = `${min}°C`;
+          unitMax = `${max}°C`;
+      } else if (parameter === 'pH Level') {
+          // No units for pH
+      } else {
+          unitMin = `${min} kg/ha`;
+          unitMax = `${max} kg/ha`;
+      }
+      
+      tr.innerHTML = `
+          <td>${field}</td>
+          <td>${parameter}</td>
+          <td>${unitMin}</td>
+          <td>${unitMax}</td>
+          <td><span class="alert-tag ${priority}">${priority.charAt(0).toUpperCase() + priority.slice(1)}</span></td>
+          <td>
+              <button class="btn-icon edit-alert">
+                  <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn-icon delete-alert">
+                  <i class="fas fa-trash"></i>
+              </button>
+          </td>
+      `;
+      
+      // Add to table
+      tbody.appendChild(tr);
+      
+      // Setup actions for the new row
+      setupCustomAlertTableActions();
+  }
+  
+  function setupCustomAlertTableActions() {
+      // Delete buttons
+      const deleteButtons = document.querySelectorAll('.delete-alert');
+      deleteButtons.forEach(btn => {
+          // Remove existing listeners
+          btn.replaceWith(btn.cloneNode(true));
+      });
+      
+      // Add new listeners
+      document.querySelectorAll('.delete-alert').forEach(btn => {
+          btn.addEventListener('click', function() {
+              const row = this.closest('tr');
+              
+              // Confirm delete
+              if (confirm('Are you sure you want to delete this custom alert?')) {
+                  // Fade out and remove
+                  row.style.opacity = '0';
+                  setTimeout(() => {
+                      row.remove();
+                      showNotification('Custom alert deleted successfully!', 'success');
+                  }, 300);
+              }
+          });
+      });
+      
+      // Edit buttons
+      const editButtons = document.querySelectorAll('.edit-alert');
+      editButtons.forEach(btn => {
+          // Remove existing listeners
+          btn.replaceWith(btn.cloneNode(true));
+      });
+      
+      // Add new listeners
+      document.querySelectorAll('.edit-alert').forEach(btn => {
+          btn.addEventListener('click', function() {
+              const row = this.closest('tr');
+              const cells = row.querySelectorAll('td');
+              
+              // Get field name and find corresponding option
+              const fieldName = cells[0].textContent;
+              const fieldSelect = document.getElementById('alert-field');
+              for (let i = 0; i < fieldSelect.options.length; i++) {
+                  if (fieldSelect.options[i].text === fieldName) {
+                      fieldSelect.value = fieldSelect.options[i].value;
+                      break;
+                  }
+              }
+              
+              // Get parameter name and find corresponding option
+              const parameterName = cells[1].textContent;
+              const parameterSelect = document.getElementById('alert-parameter');
+              for (let i = 0; i < parameterSelect.options.length; i++) {
+                  if (parameterSelect.options[i].text === parameterName) {
+                      parameterSelect.value = parameterSelect.options[i].value;
+                      break;
+                  }
+              }
+              
+              // Get min/max values (remove units)
+              let minValue = cells[2].textContent;
+              let maxValue = cells[3].textContent;
+              
+              minValue = minValue.replace(/[^0-9.]/g, '');
+              maxValue = maxValue.replace(/[^0-9.]/g, '');
+              
+              document.getElementById('min-threshold').value = minValue;
+              document.getElementById('max-threshold').value = maxValue;
+              
+              // Get priority
+              const priorityText = cells[4].textContent.toLowerCase();
+              document.getElementById('alert-priority').value = priorityText;
+              
+              // Scroll to form
+              document.querySelector('.custom-alert-form').scrollIntoView({ behavior: 'smooth' });
+              
+              // Update button text to indicate editing
+              createButton.textContent = 'Update Custom Alert';
+              
+              // Store reference to the row being edited
+              createButton.setAttribute('data-editing-row', Array.from(row.parentNode.children).indexOf(row));
+              
+              showNotification('Edit mode: Update the form and click "Update Custom Alert" to save changes', 'info');
+          });
+      });
+      
+      // Check if we're in edit mode
+      const createButton = document.querySelector('.custom-alert-form .btn-primary');
+      if (createButton && createButton.hasAttribute('data-editing-row')) {
+          createButton.addEventListener('click', function() {
+              if (this.hasAttribute('data-editing-row')) {
+                  const rowIndex = parseInt(this.getAttribute('data-editing-row'));
+                  const rows = document.querySelectorAll('.custom-alert-table tbody tr');
+                  
+                  if (rows[rowIndex]) {
+                      // Remove the row
+                      rows[rowIndex].remove();
+                  }
+                  
+                  // Reset button
+                  this.textContent = 'Create Custom Alert';
+                  this.removeAttribute('data-editing-row');
+              }
+          });
+      }
+  }
+  */</script>
